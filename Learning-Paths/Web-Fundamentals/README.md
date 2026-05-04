@@ -1,120 +1,112 @@
-# DevSecOps
+# Web Fundamentals
 
 **Status:** ✅ Completed  
 **Platform:** TryHackMe  
-**Level:** Intermediate → Advanced  
+**Level:** Beginner → Intermediate  
 
 ---
 
 ## Overview
 
-DevSecOps explores one of the fastest-growing and most overlooked attack surfaces in 
-modern cybersecurity: the software development and deployment pipeline itself. 
-As organisations adopt CI/CD, containers, and infrastructure-as-code, the attack 
-surface expands beyond the application — into the tools, pipelines, and automation 
-that build and deploy it.
+The Web Fundamentals path is the essential prerequisite for any serious web application 
+security work. It builds a complete technical understanding of how the web operates — 
+from the HTTP request/response cycle through to the mechanics of the most common 
+vulnerability classes — and introduces the tooling that professional web testers 
+use on every engagement.
 
-This path covers both how to secure these environments and, critically, how attackers 
-target them. Pipeline exploitation, container escape, supply chain attacks, and 
-secrets theft are not theoretical — they are techniques used in real-world breaches 
-including some of the most significant attacks of recent years.
+The key insight this path delivers: every web vulnerability exists because a developer 
+made an assumption about user input that turned out to be wrong. Understanding exactly 
+where those assumptions are made — and how to violate them — is the core skill this 
+path develops.
 
 ---
 
 ## Modules & Rooms
 
-### 🔹 DevSecOps Introduction
-- What DevSecOps means in practice: integrating security at every stage of development
-- The "shift left" philosophy: finding vulnerabilities during development rather than 
-  after deployment
-- The DevSecOps toolchain: SAST, DAST, SCA, secrets scanning, container scanning
-- Understanding the CI/CD pipeline as an attacker target: why pipeline compromise 
-  can mean full infrastructure access
+### 🔹 How the Web Works
+- **DNS in Detail** — The full DNS resolution chain: recursive resolvers, 
+  root nameservers, TLD nameservers, authoritative nameservers. Record types: 
+  A, AAAA, CNAME, MX, TXT, NS. DNS caching, TTL, and why stale DNS records 
+  cause reachability issues in security testing environments
+- **HTTP in Detail** — HTTP/1.1 vs HTTP/2, all HTTP methods and their intended use 
+  vs how they are abused (PUT for file upload, DELETE for data destruction), 
+  status code classes and what each reveals about server behaviour, 
+  request and response headers — security-relevant ones: `Set-Cookie`, 
+  `X-Forwarded-For`, `Authorization`, `Content-Type`, `Location`
+- **How Websites Work** — Server-side rendering vs client-side rendering, 
+  how JavaScript interacts with the DOM, how databases sit behind web applications, 
+  and why sensitive data ends up in HTML source
+- **Putting It All Together** — The complete lifecycle of a web request: 
+  DNS resolution → TCP connection → TLS handshake → HTTP request → 
+  server processing → database query → response rendering. 
+  Where CDNs, load balancers, and WAFs sit in this chain
 
-### 🔹 SAST — Static Application Security Testing
-- How SAST tools analyse source code without executing it
-- Identifying common vulnerability patterns: SQL injection sinks, XSS output points, 
-  hardcoded credentials, insecure cryptography usage
-- Tools: `Semgrep`, `Bandit` (Python), `ESLint` with security plugins
-- Practical: Running SAST scans against intentionally vulnerable codebases and 
-  triaging real vs false positive findings
+### 🔹 Introduction to Web Hacking
+- **Walking an Application** — Manual application review using only a browser: 
+  page source inspection, DevTools (Network tab, Console, Storage), 
+  finding hidden forms, comments with sensitive information, 
+  and JavaScript files with hardcoded values
+- **Content Discovery** — The three methods: manual (robots.txt, sitemap.xml, 
+  HTTP headers, favicon hash fingerprinting), automated (Gobuster, FFuF wordlist fuzzing), 
+  and OSINT (Google dorking, Wayback Machine, GitHub code search)
+- **Subdomain Enumeration** — Brute force, DNS zone transfers (AXFR), 
+  certificate transparency log searching (crt.sh), and virtual host enumeration 
+  for targets with multiple sites on one IP
+- **Authentication Bypass** — Username enumeration via response time differences 
+  or distinct error messages, brute forcing with Hydra, logic flaw exploitation 
+  (bypassing authentication checks entirely through parameter manipulation), 
+  cookie tampering
+- **IDOR** — Horizontal privilege escalation (accessing other users' data), 
+  vertical privilege escalation (accessing admin functions), 
+  IDOR in encoded parameters (base64, hashed IDs), 
+  IDOR in API endpoints and unpredictable IDs
+- **File Inclusion (LFI/RFI)** — Path traversal (`../../../etc/passwd`), 
+  null byte injection, PHP wrappers (`php://filter/convert.base64-encode/resource=`), 
+  log poisoning for remote code execution via LFI, 
+  Remote File Inclusion when `allow_url_include` is enabled
+- **Intro to SSRF** — Basic SSRF to access internal services, 
+  blind SSRF via out-of-band detection, bypassing SSRF filters (URL encoding, 
+  IP format variations, DNS rebinding concepts), 
+  accessing cloud metadata endpoints (AWS `169.254.169.254`)
+- **XSS** — Reflected XSS (user input reflected immediately in response), 
+  Stored XSS (payload persisted in database, executed on every load), 
+  DOM-based XSS (JavaScript reads from URL and writes to DOM without server involvement), 
+  cookie stealing payloads, keylogger injection, BeEF framework introduction
+- **Command Injection** — In-band (output visible directly), 
+  blind (time-based and out-of-band via DNS/HTTP callbacks), 
+  common injection points, filter bypass with encoding and alternative syntax
+- **SQL Injection** — Classic in-band: UNION-based column enumeration and data extraction, 
+  Error-based for database fingerprinting. Blind: Boolean-based (different responses 
+  for true/false conditions) and time-based (`SLEEP()`/`WAITFOR DELAY`). 
+  Manual exploitation workflow and `sqlmap` for automation
 
-### 🔹 SCA — Software Composition Analysis
-- Dependency confusion attacks: how attackers publish malicious packages with 
-  names that match internal private packages
-- Identifying vulnerable third-party libraries: CVE databases, CVSS scoring 
-  applied to dependencies
-- Tools: `OWASP Dependency-Check`, `Snyk`, `npm audit`, `pip-audit`
-- Supply chain attack methodology: SolarWinds, XZ Utils backdoor — 
-  how build system compromise propagates to every downstream consumer
-
-### 🔹 CI/CD Pipeline Security
-- Jenkins exploitation: exposed Jenkins instances, script console abuse for RCE, 
-  stored credentials theft, pipeline poisoning through pull request injection
-- GitLab CI/CD: `.gitlab-ci.yml` manipulation, runner token theft, 
-  environment variable leakage
-- GitHub Actions: workflow injection via untrusted input, secret exfiltration, 
-  compromised third-party actions
-- Pipeline poisoning: how an attacker who can modify pipeline configuration 
-  achieves code execution in trusted environments with elevated privileges
-- Practical: Exploiting a misconfigured Jenkins pipeline for full RCE and 
-  lateral movement
-
-### 🔹 Secrets Management
-- The most common mistake in development: hardcoded credentials in source code
-- Git history secrets: credentials committed and removed but still visible 
-  in version history — tools: `truffleHog`, `git-secrets`, `gitleaks`
-- Environment variable security: `.env` files, exposure through error messages, 
-  container environment inspection
-- Proper secrets management: HashiCorp Vault, AWS Secrets Manager, 
-  Azure Key Vault — and how each can be misconfigured
-
-### 🔹 Container Security
-- Docker security fundamentals: what namespaces and cgroups actually provide 
-  (and what they do not)
-- Container escape techniques: privileged container abuse, mounted Docker socket 
-  exploitation, kernel vulnerability exploitation from within a container
-- Image security: scanning for vulnerabilities in base images, 
-  minimising attack surface with distroless images, image signing
-- Docker Compose security misconfigurations: exposed ports, volume mounts, 
-  privileged flags left in production configs
-
-### 🔹 Kubernetes Security
-- Kubernetes architecture security: API server exposure, etcd encryption, 
-  node-to-node communication
-- RBAC misconfigurations: overly permissive ClusterRoles, wildcard permissions, 
-  service account token abuse
-- Pod security: privileged pods, hostPath mounts, running as root
-- Kubernetes secrets: why base64 encoding is not encryption, 
-  proper secrets management with sealed secrets or external vaults
-- Practical: Exploiting a misconfigured Kubernetes cluster from initial pod 
-  compromise to cluster-admin via RBAC abuse
-
-### 🔹 Infrastructure as Code Security
-- Terraform security: state file exposure (contains plaintext secrets), 
-  overly permissive IAM policies created by IaC, remote code execution 
-  via malicious Terraform providers
-- Ansible security: playbook injection, vault secret management, 
-  insecure inventory configurations
-- Practical: Identifying and exploiting misconfigurations in Terraform 
-  and Ansible configurations
+### 🔹 Burp Suite
+- **The Basics** — Browser proxy configuration, FoxyProxy, intercepting and forwarding 
+  requests, the HTTP history log, scope configuration
+- **Repeater** — The core Burp workflow: intercept → send to Repeater → 
+  modify → analyse → repeat. Why manual testing with Repeater finds what 
+  scanners miss
+- **Intruder** — Attack types: Sniper (single position), 
+  Battering Ram (same payload in all positions), Pitchfork (parallel payloads), 
+  Cluster Bomb (all combinations). Payload types: wordlists, numbers, 
+  character fuzz strings. Rate limiting and Burp Community restrictions
+- **Other Modules** — Decoder for URL/Base64/hex encoding, 
+  Comparer for diffing two responses, Sequencer for token randomness analysis
 
 ---
 
-## Tools & Technologies Mastered
-`Jenkins` `GitLab CI` `GitHub Actions` `Docker` `Kubernetes` `kubectl` `Trivy` 
-`Semgrep` `truffleHog` `gitleaks` `HashiCorp Vault` `Terraform` `Ansible` 
-`OWASP Dependency-Check` `Snyk`
+## Tools Mastered
+`Burp Suite` `Gobuster` `FFuF` `sqlmap` `Hydra` `Netcat` `curl` 
+`browser DevTools` `crt.sh` `Shodan`
 
 ---
 
 ## Key Takeaways
 
-Modern infrastructure is complex, interconnected, and largely automated — which means 
-a single misconfiguration in a pipeline can cascade into full infrastructure compromise. 
-This path made clear that CI/CD pipelines are high-value targets precisely because they 
-operate with elevated trust by design. The supply chain attack angle is particularly 
-relevant: as more organisations consume open-source dependencies without proper vetting, 
-the attack surface expands upstream of the application itself. DevSecOps is not just 
-a defensive skill — it is essential offensive knowledge for any penetration tester 
-working against modern cloud-native environments.
+The web is the primary attack surface for almost every real-world penetration test. 
+This path built the mental model that drives effective web application security work: 
+every input field is a potential injection point, every response leaks information about 
+the server, and every assumption a developer makes about what a user will send 
+is a potential vulnerability. Burp Suite went from a tool to a natural extension of 
+the testing workflow. LFI log poisoning and SSRF to cloud metadata were particular 
+highlights — both techniques appear frequently in real CTFs and red team engagements.
