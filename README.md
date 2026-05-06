@@ -164,13 +164,6 @@ Each folder contains a full README with:
 
 ---
 
-## 🎯 Goal
-
-> *CompTIA A+ · Network+ · Security+ · ITIL 4 → eJPT → **OSCP** → beyond*  
-> Every room, every path, every flag is a step toward that.
-
----
-
 <div align="center">
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-gresahisa-0077B5?style=flat-square&logo=linkedin)](https://linkedin.com/in/gresahisa)
