@@ -1,6 +1,6 @@
 # AI Security
 
-**Status:** 🔄 In Progress — 86%  
+**Status:** ✅ Completed  
 **Platform:** TryHackMe  
 **Level:** Intermediate → Advanced  
 
