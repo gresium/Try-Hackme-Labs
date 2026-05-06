@@ -45,8 +45,8 @@ Try-Hackme-Labs/
 | 🟠 Security Engineer | ✅ Completed | Secure architecture · Threat modelling · Cloud |
 | 🟠 DevSecOps | ✅ Completed | CI/CD exploitation · Containers · Supply chain |
 | 🔴 Web Fundamentals | ✅ Completed | HTTP · OWASP Top 10 · Burp Suite |
-| 🔴 Web App Pentesting | 🔄 63% | Advanced web exploitation · JWT · Deserialization |
-| 🟣 AI Security | 🔄 86% | Prompt injection · LLM attacks · RAG security |
+| 🔴 Web App Pentesting | ✅ Completed | Advanced web exploitation · JWT · Deserialization |
+| 🟣 AI Security | ✅ Completed | Prompt injection · LLM attacks · RAG security |
 
 ---
 
@@ -56,7 +56,7 @@ Try-Hackme-Labs/
 
 | 🟢 Easy | 🟡 Medium | 🔴 Hard | 🏁 Total |
 |---------|----------|---------|---------|
-| 9 / 172 | 6 / 216 | 0 / 100 | 15 / 488 |
+|  172 |      216 |      100 |      488 |
 
 </div>
 
