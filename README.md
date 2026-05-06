@@ -5,11 +5,14 @@
 *Offensive security labs, learning path completions, and CTF writeups*  
 *documented as I work toward elite-level penetration testing.*
 
+<br>
+
 [![TryHackMe](https://img.shields.io/badge/TryHackMe-Top%201%25-red?style=for-the-badge&logo=tryhackme&logoColor=white)](https://tryhackme.com/p/gresium)
-[![Paths Completed](https://img.shields.io/badge/Paths%20Completed-8-brightgreen?style=for-the-badge)](https://github.com/gresium/Try-Hackme-Labs)
 [![Focus](https://img.shields.io/badge/Focus-Offensive%20Security-black?style=for-the-badge)](https://github.com/gresium/Try-Hackme-Labs)
 
 </div>
+
+<br>
 
 ---
 
@@ -39,7 +42,7 @@ Try-Hackme-Labs/
 ## 🗺️ Learning Paths
 
 | Path | Status | Topics |
-|------|--------|--------|
+|------|:------:|--------|
 | 🔵 Pre Security | ✅ Completed | Networking · Linux · Windows fundamentals |
 | 🔵 Cyber Security 101 | ✅ Completed | Full security landscape · **SEC1 Certified** |
 | 🔴 Jr Penetration Tester | ✅ Completed | Web attacks · Network pentesting · PrivEsc |
@@ -53,8 +56,6 @@ Try-Hackme-Labs/
 
 ## ⚙️ Core Toolset
 
-<div align="center">
-
 | Category | Tools |
 |----------|-------|
 | 🔍 Reconnaissance | `Nmap` `Rustscan` `whois` `dig` `Shodan` `theHarvester` |
@@ -63,8 +64,6 @@ Try-Hackme-Labs/
 | 🔑 Passwords | `Hydra` `John the Ripper` `hashcat` |
 | ⬆️ Privilege Escalation | `LinPEAS` `WinPEAS` `GTFOBins` |
 | 🔗 Networking | `Netcat` `socat` `Chisel` `Proxychains` |
-
-</div>
 
 ---
 
@@ -87,4 +86,3 @@ Each folder contains a full README with:
 [![TryHackMe](https://img.shields.io/badge/TryHackMe-gresium-red?style=flat-square&logo=tryhackme)](https://tryhackme.com/p/gresium)
 
 </div>
-
